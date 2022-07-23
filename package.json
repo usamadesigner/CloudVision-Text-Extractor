@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "expo": "^44.0.0",
+    "expo-camera": "~12.1.2",
+    "expo-media-library": "^14.1.0",
     "expo-status-bar": "~1.2.0",
     "native-base": "3.4.0",
     "react": "17.0.1",
