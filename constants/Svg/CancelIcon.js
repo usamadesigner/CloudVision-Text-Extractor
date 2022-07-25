@@ -7,6 +7,7 @@ const CancelIcon = (props) => (
     width={24}
     height={24}
     fill="none"
+    color={props.color}
     xmlns="http://www.w3.org/2000/svg"
   >
     <Path

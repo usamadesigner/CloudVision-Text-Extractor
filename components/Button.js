@@ -3,11 +3,13 @@ import { View ,StyleSheet,Text,Dimensions, TouchableOpacity} from 'react-native'
 import { colors } from '../constants';
 
 const { width, height } = Dimensions.get('window');
-function Button({outlined,onPress,title,Icon,haveIcon}) {
+function Button({outlined,onPress,title,Icon,haveIcon,widthProp,filledColor,borderwidth,textColor}) {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.container,
             {
-                backgroundColor: outlined ? colors.secondary : colors.primary,
+                backgroundColor: outlined ? colors.secondary : filledColor || colors.primary,
+                borderWidth:borderwidth || 1,
+                width:widthProp || width-40,
             }]}>
             <>
             {
@@ -19,7 +21,7 @@ function Button({outlined,onPress,title,Icon,haveIcon}) {
                         null
                 )
             }  
-            <Text style={[styles.__ButtonText,{color:outlined?colors.primary:colors.secondary}]}>
+            <Text style={[styles.__ButtonText,{color:textColor}]}>
                 {title}
             </Text>
             </>
@@ -30,8 +32,6 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 10,
         paddingVertical: 12,
-        width: width - 40,
-        borderWidth: 1,
         borderColor:colors.primary,
         justifyContent: 'center',
         flexDirection: 'row',

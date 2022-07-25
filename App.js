@@ -1,9 +1,11 @@
 import React  from 'react';
-import { View,Text } from 'react-native';
+import { View,Text, Pressable ,Dimensions} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Home,Result,CaptureImage} from './screens';
-
+import { colors, SVG } from './constants';
+import Button from './components/Button';
+const { width } = Dimensions.get('window');
 
 const Stack = createNativeStackNavigator();
 
@@ -17,8 +19,8 @@ function App() {
         headerTitleAlign: 'center',
         headerShadowVisible: false,
       }}>
-        <Stack.Screen name="Home" component={Home} initialParams={{Image:''}} />
-        <Stack.Screen name="Result" component={Result} />
+        <Stack.Screen name="Home" component={Home} initialParams={{CapturedImage:''}} />
+        <Stack.Screen name="Result" component={Result} initialParams={{imageUri:''}}/>
         <Stack.Screen name="CaptureImage" component={CaptureImage} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>

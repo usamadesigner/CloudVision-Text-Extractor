@@ -1,44 +1,51 @@
-import { View, Text, StyleSheet, Dimensions ,Image} from 'react-native';
 import * as React from 'react';
+import { View, Text, StyleSheet, Dimensions ,Image} from 'react-native';
 import { colors,SVG } from '../../constants';
 import Button from '../../components/Button';
 
 const { width, height } = Dimensions.get('window');
 const Home = ({ navigation,route }) => {
-  const {Image} =route.params;
-  const [Picture, setPicture] = React.useState(null);
+  const { CapturedImage } = route.params;
     function onCapturewithCamera(){
         navigation.push('CaptureImage');
     }
-    React.useEffect(()=>{
-      if(Image){
-        setPicture(Image)
-      }
-      else{
-        setPicture(null)
-      }
-     
-    },[])
+    function NavigateToExtraction(){
+      navigation.push('Result', {
+        imageUri:CapturedImage
+      });
+  }
   return (
     <View style={styles.container}>
           <View style={styles.DummyImage}>
             {
-              Picture===null?(
+              CapturedImage===''?(
                 <SVG.ImageIcon/>
               ):
-             ( <Image source={{ uri: "data:image/jpg;base64," + Picture?.base64 }}/>)
+            (<Image source={{ uri: "data:image/jpg;base64," + CapturedImage }}  style={{height: height / 1.8,width: width - 40,  borderRadius:15}}/>)
             }
            
           </View>
-          <View style={{marginTop:40}}>
-          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} Icon={<SVG.ImageGalleryIcon color={colors.secondary}/>}  />
+      <View style={{ marginTop: 40 }}>
+        {CapturedImage === '' ? (
+          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary} />} />
+        ) : (
+          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
+
+        )
+        }
           </View>
           <View style={{marginVertical:16}}>
           <Text style={styles.OddText}>OR</Text>
         </View>
-          <View>
-          <Button title={"Capture using Camera"} haveIcon={true}  outlined={true} Icon={<SVG.CameraIcon color={colors.primary}/>} onPress={onCapturewithCamera} />
-          </View>
+      <View>
+        {CapturedImage === '' ? (
+          <Button title={"Capture using Camera"} haveIcon={true} outlined={true} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
+        
+        ) : (
+          <Button title={"Extract Text"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary} />} onPress={NavigateToExtraction}/>
+
+        )}
+      </View>
         
     </View>
   )

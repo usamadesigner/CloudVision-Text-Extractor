@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View,Button,Image,StatusBar, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View,StatusBar, Dimensions,TouchableOpacity, SafeAreaView } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as MediaLibary from 'expo-media-library';
-
+import Button from '../../components/Button';
+import { colors, SVG } from '../../constants';
+const { width, height } = Dimensions.get('window');
 export default function CaptureImage({navigation}) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
-  const [haslibraryPermission, sethaslibraryPermission] = useState(null)
+  const [haslibraryPermission, sethaslibraryPermission] = useState(null);
+  const [Pic, setPic] = useState(null);
   const [type, setType] = useState('back');
   const ChangeType=()=>{
     setType(type === 'back' ? 'front' : 'back');
   }
-const [pic, setpic] = useState('')
+
   useEffect(() => {
     (async () => {
       const { Camerastatus } = await Camera.requestCameraPermissionsAsync();
@@ -37,34 +40,16 @@ const [pic, setpic] = useState('')
       isImageMirror:false
     };
     let newpic = await cameraRef.current.takePictureAsync(options);
-
-    setpic(newpic);
-    navigation.navigate('Home',{
-      Image:newpic
-    })
-  }
-  if (pic) {
-    let savePhoto = () => {
-      MediaLibary.saveToLibraryAsync(pic.uri).then((res) => {
-        console.log('being save',res);
-        setpic(undefined);
+ 
+      navigation.navigate('Home',{
+        CapturedImage:newpic.base64
       })
-    }
-  
-    // return (
-    //   <SafeAreaView style={{ flex: 1,alignSelf:'stretch' }}>
-       
-    //    <Image style={{ height:500,width:'100%' }} source={{ uri: "data:image/jpg;base64," + pic.base64 }} />
-    // {
-    //       pic == undefined ?
-    //         <Button title="Discard" onPress={()=>setpic(undefined)} /> :
-    //         <Button title="save Pic"  onPress={()=>savePhoto()}/>
-    // } 
-    //   </SafeAreaView>
-    // )
+
+   
   }
+
   return (
-    <SafeAreaView style={styles.camera}>
+    <SafeAreaView style={{flex:1}}>
       <StatusBar />
       <Camera style={styles.camera}
         ref={cameraRef}
@@ -74,22 +59,13 @@ const [pic, setpic] = useState('')
         useCamera2Api={false}
       >
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-           
-            }}>
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              takePicture();
-            }}>
-            
-            <Text style={styles.text}> Capture  </Text>
-          </TouchableOpacity>
-        </View>
+          <View style={{flex:1}}>
+          <Button title={"Discard"} haveIcon={true} Icon={<SVG.CancelIcon color={colors.secondary}/>} textColor={colors.secondary} onPress={ChangeType}  borderwidth={0} widthProp={width / 2 - 40} />
+          </View>
+          <View style={{flex:1}}>
+            <Button title={"Capture"} haveIcon={true} Icon={<SVG.CaptureIcon />} onPress={takePicture}   widthProp={width / 2 - 40} borderwidth={0} filledColor={colors.Attention} />
+            </View>
+          </View>
       </Camera>
       </SafeAreaView>
   );
@@ -99,25 +75,17 @@ const styles = StyleSheet.create({
 
   camera: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent:'center'
+    justifyContent: 'center',
+ alignItems:'center'
   },
   buttonContainer: {
-    flex:1,
+    position: 'absolute',
+    bottom:40,
+    justifyContent: 'space-evenly',
+  flexShrink:1,
+    alignItems:'center',
     flexDirection: 'row',
-    margin: 20,
-   
   },
-  button: {
-    flex: 1,
-    borderRadius: 10,
-    padding:10,
-    backgroundColor:'#ffff',
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 18,
-    color: '#000000',
-  },
+ 
+
 });
