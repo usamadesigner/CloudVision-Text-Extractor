@@ -1,5 +1,5 @@
 import React  from 'react';
-import { View,Text, Pressable ,Dimensions} from 'react-native';
+import {Platform,Dimensions} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Home,Result,CaptureImage} from './screens';
@@ -14,8 +14,8 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' screenOptions={{
         headerTitle: "AI Text Converter",
-        headerTransparent: true,
-        headerStyle: { height: 100 }, 
+        // headerTransparent: true,
+        headerStyle: { height:Platform.OS=='android'? 80 : 60}, 
         headerTitleAlign: 'center',
         headerShadowVisible: false,
       }}>

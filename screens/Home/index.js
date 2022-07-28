@@ -2,18 +2,32 @@ import * as React from 'react';
 import { View, Text, StyleSheet, Dimensions ,Image} from 'react-native';
 import { colors,SVG } from '../../constants';
 import Button from '../../components/Button';
-
+import callGoogleVisionAsync from '../../HelperFunction';
+import * as ImagePicker from 'expo-image-picker';
 const { width, height } = Dimensions.get('window');
 const Home = ({ navigation,route }) => {
   const { CapturedImage } = route.params;
     function onCapturewithCamera(){
         navigation.push('CaptureImage');
     }
-    function NavigateToExtraction(){
-      navigation.push('Result', {
-        imageUri:CapturedImage
-      });
+  async function NavigateToExtraction() {
+    try {
+   let res = await callGoogleVisionAsync(CapturedImage);
+      navigation.navigate("Result", {
+        imageUri:CapturedImage,
+        ExtractedResponse:res.text
+ })
+    }
+    catch (err) {
+      console.log(err);
+    }
+ 
+
+      // navigation.push('Result', {
+      //   imageUri:CapturedImage
+      // });
   }
+  
   return (
     <View style={styles.container}>
           <View style={styles.DummyImage}>
@@ -29,8 +43,7 @@ const Home = ({ navigation,route }) => {
         {CapturedImage === '' ? (
           <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary} />} />
         ) : (
-          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
-
+          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} borderwidth={1} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
         )
         }
           </View>
@@ -39,7 +52,7 @@ const Home = ({ navigation,route }) => {
         </View>
       <View>
         {CapturedImage === '' ? (
-          <Button title={"Capture using Camera"} haveIcon={true} outlined={true} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
+          <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
         
         ) : (
           <Button title={"Extract Text"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary} />} onPress={NavigateToExtraction}/>

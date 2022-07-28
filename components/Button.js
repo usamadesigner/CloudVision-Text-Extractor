@@ -8,7 +8,7 @@ function Button({outlined,onPress,title,Icon,haveIcon,widthProp,filledColor,bord
         <TouchableOpacity onPress={onPress} style={[styles.container,
             {
                 backgroundColor: outlined ? colors.secondary : filledColor || colors.primary,
-                borderWidth:borderwidth || 1,
+                borderWidth:borderwidth || 0,
                 width:widthProp || width-40,
             }]}>
             <>
