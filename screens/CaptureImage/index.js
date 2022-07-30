@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View,StatusBar, Dimensions,TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View,StatusBar, Dimensions, SafeAreaView } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as MediaLibary from 'expo-media-library';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+
 export default function CaptureImage({navigation}) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [haslibraryPermission, sethaslibraryPermission] = useState(null);
-  const [Pic, setPic] = useState(null);
   const [type, setType] = useState('back');
   const ChangeType=()=>{
     setType(type === 'back' ? 'front' : 'back');
@@ -40,12 +40,9 @@ export default function CaptureImage({navigation}) {
       isImageMirror:false
     };
     let newpic = await cameraRef.current.takePictureAsync(options);
- 
       navigation.navigate('Home',{
         CapturedImage:newpic.base64
       })
-
-   
   }
 
   return (
@@ -56,13 +53,17 @@ export default function CaptureImage({navigation}) {
         type={type}
         autoFocus={true}
         ratio={'16:9'}
+        flashMode={'on'}
         useCamera2Api={false}
       >
+        <View style={{ position: 'absolute', right: 20, top: 24 }}>
+          <SVG.Flip />
+        </View>
         <View style={styles.buttonContainer}>
           <View style={{flex:1}}>
-          <Button title={"Discard"} haveIcon={true} Icon={<SVG.CancelIcon color={colors.secondary}/>} textColor={colors.secondary} onPress={ChangeType}  borderwidth={0} widthProp={width / 2 - 40} />
+          <Button title={"Discard"} haveIcon={true} Icon={<SVG.CancelIcon color={colors.Tertiary}/>} textColor={colors.secondary} onPress={ChangeType}  borderwidth={0} widthProp={width / 2 - 40} />
           </View>
-          <View style={{flex:1}}>
+          <View >
             <Button title={"Capture"} haveIcon={true} Icon={<SVG.CaptureIcon />} onPress={takePicture}   widthProp={width / 2 - 40} borderwidth={0} filledColor={colors.Attention} />
             </View>
           </View>
@@ -79,13 +80,13 @@ const styles = StyleSheet.create({
  alignItems:'center'
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom:40,
+    flex: 1,
+    position:'absolute',
+    bottom: 40,
+    marginHorizontal:20,
     justifyContent: 'space-evenly',
-  flexShrink:1,
     alignItems:'center',
     flexDirection: 'row',
   },
- 
 
 });

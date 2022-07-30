@@ -5,5 +5,5 @@ import CaptureIcon from "./CaptureIcon";
 import CancelIcon from "./CancelIcon";
 import MenuIcon from "./MenuIcon";
 import CopyIcon from "./CopyIcon";
-
-export { CameraIcon, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon };
+import Flip from "./Flip";
+export { CameraIcon, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon, Flip };
