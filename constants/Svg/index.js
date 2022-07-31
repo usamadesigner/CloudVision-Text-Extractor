@@ -6,4 +6,6 @@ import CancelIcon from "./CancelIcon";
 import MenuIcon from "./MenuIcon";
 import CopyIcon from "./CopyIcon";
 import Flip from "./Flip";
-export { CameraIcon, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon, Flip };
+import FlashOff from "./Flashoff";
+import FlashOn from "./Flashon";
+export { CameraIcon,FlashOff,FlashOn, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon, Flip };

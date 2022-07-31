@@ -4,6 +4,7 @@ import { colors,SVG } from '../../constants';
 import Button from '../../components/Button';
 import callGoogleVisionAsync from '../../HelperFunction';
 import * as ImagePicker from 'expo-image-picker';
+
 const { width, height } = Dimensions.get('window');
 const Home = ({ navigation,route }) => {
   const { CapturedImage } = route.params;
@@ -30,13 +31,15 @@ const Home = ({ navigation,route }) => {
   
   return (
     <View style={styles.container}>
-          <View style={styles.DummyImage}>
+      <View style={styles.DummyImage} >
+
             {
               CapturedImage===''?(
                 <SVG.ImageIcon/>
               ):
             (<Image source={{ uri: "data:image/jpg;base64," + CapturedImage }}  style={{height: height / 1.8,width: width - 40,  borderRadius:15}}/>)
-            }
+          }
+        
            
           </View>
       <View style={{ marginTop: 40 }}>

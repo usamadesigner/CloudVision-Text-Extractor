@@ -3,13 +3,14 @@ import { View ,StyleSheet,Text,Dimensions, TouchableOpacity} from 'react-native'
 import { colors } from '../constants';
 
 const { width, height } = Dimensions.get('window');
-function Button({outlined,onPress,title,Icon,haveIcon,widthProp,filledColor,borderwidth,textColor}) {
+function Button({outlined,onPress,title,Icon,haveIcon,widthProp,filledColor,borderwidth,textColor,heightProp}) {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.container,
             {
                 backgroundColor: outlined ? colors.secondary : filledColor || colors.primary,
                 borderWidth:borderwidth || 0,
-                width:widthProp || width-40,
+                width: widthProp || width - 40,
+                height:heightProp || 56,
             }]}>
             <>
             {

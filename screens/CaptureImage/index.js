@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View,StatusBar, Dimensions, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View,StatusBar, Dimensions, SafeAreaView, TouchableOpacity,PixelRatio } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as MediaLibary from 'expo-media-library';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
-const { width } = Dimensions.get('window');
+
+const { width,height } = Dimensions.get('window');
 
 export default function CaptureImage({navigation}) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [haslibraryPermission, sethaslibraryPermission] = useState(null);
   const [type, setType] = useState('back');
+  const [FlashMode, setFlashMode] = useState('off')
+
   const ChangeType=()=>{
     setType(type === 'back' ? 'front' : 'back');
   }
-
+  const ChangeFlash = () => {
+    setFlashMode(FlashMode === 'off' ? 'on' : 'off');
+}
   useEffect(() => {
     (async () => {
       const { Camerastatus } = await Camera.requestCameraPermissionsAsync();
@@ -45,6 +50,7 @@ export default function CaptureImage({navigation}) {
       })
   }
 
+
   return (
     <SafeAreaView style={{flex:1}}>
       <StatusBar />
@@ -52,19 +58,29 @@ export default function CaptureImage({navigation}) {
         ref={cameraRef}
         type={type}
         autoFocus={true}
-        ratio={'16:9'}
-        flashMode={'on'}
+        ratio={"17:9"}
+        flashMode={FlashMode}
         useCamera2Api={false}
       >
-        <View style={{ position: 'absolute', right: 20, top: 24 }}>
+         <TouchableOpacity onPress={()=>ChangeFlash()} style={{ backgroundColor:`${colors.secondary}50`, padding:5,borderRadius:10 ,position: 'absolute', right: 20, top: 72 }}>
+          {
+            FlashMode === 'on' ?
+              (
+                <SVG.FlashOn/>
+              ) : (
+                <SVG.FlashOff/>
+              )
+        }
+          </TouchableOpacity>
+        <TouchableOpacity onPress={()=>ChangeType()} style={{  backgroundColor:`${colors.secondary}50`, padding:5,borderRadius:10 ,position: 'absolute', right: 20, top: 24 }}>
           <SVG.Flip />
-        </View>
+          </TouchableOpacity>
         <View style={styles.buttonContainer}>
           <View style={{flex:1}}>
-          <Button title={"Discard"} haveIcon={true} Icon={<SVG.CancelIcon color={colors.Tertiary}/>} textColor={colors.secondary} onPress={ChangeType}  borderwidth={0} widthProp={width / 2 - 40} />
+          <Button title={"Discard"}  haveIcon={true} Icon={<SVG.CancelIcon color={colors.Tertiary}/>} filledColor={`${colors.primary}50`} textColor={colors.secondary} onPress={()=>navigation.pop()}  borderwidth={0} widthProp={width / 2 - 40} />
           </View>
           <View >
-            <Button title={"Capture"} haveIcon={true} Icon={<SVG.CaptureIcon />} onPress={takePicture}   widthProp={width / 2 - 40} borderwidth={0} filledColor={colors.Attention} />
+            <Button title={"Capture"} haveIcon={true} Icon={<SVG.CaptureIcon />} onPress={takePicture}   widthProp={width / 2 - 40} borderwidth={0} filledColor={`${colors.Attention}80`} />
             </View>
           </View>
       </Camera>
