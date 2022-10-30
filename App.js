@@ -25,7 +25,7 @@ function App() {
             </Pressable>
           )
         }}}/>
-        <Stack.Screen name="Result" component={Result} initialParams={{imageUri:''}} options={{headerShown:true,headerTitleAlign:'left'}}/>
+        <Stack.Screen name="Result" component={Result} initialParams={{imageUri:''}} options={{headerShown:true,headerTitleAlign:'left',headerBackButtonMenuEnabled:true}}/>
         <Stack.Screen name="CaptureImage" component={CaptureImage} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>

@@ -11,7 +11,11 @@ function Button({outlined,onPress,title,Icon,haveIcon,widthProp,filledColor,bord
                 borderWidth:borderwidth || 0,
                 width: widthProp || width - 40,
                 height:heightProp || 56,
-            }]}>
+            }]}
+            accessibilityLabel={title}
+            accessibilityHint={'Action to Perform button'}
+            activeOpacity={0.8}
+            >
             <>
             {
                 haveIcon ? (
@@ -43,6 +47,7 @@ const styles = StyleSheet.create({
     },
     __ButtonText: {
         fontSize: 16,
+        fontWeight:'900'
     }
 })
 

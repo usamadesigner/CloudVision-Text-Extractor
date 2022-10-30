@@ -4,10 +4,11 @@ import { colors,SVG } from '../../constants';
 import Button from '../../components/Button';
 import callGoogleVisionAsync from '../../HelperFunction';
 import * as ImagePicker from 'expo-image-picker';
-import base64 from 'react-native-base64';
+import Lottie from 'lottie-react-native';
 const { width, height } = Dimensions.get('window');
 const Home = ({ navigation,route }) => {
   const { CapturedImage } = route.params;
+  const [loading, setloading] = React.useState(false)
     const [image, setimage] = React.useState({
       uri:'',
       base64:'',
@@ -15,13 +16,18 @@ const Home = ({ navigation,route }) => {
     function onCapturewithCamera(){
         navigation.push('CaptureImage');
     }
+React.useEffect(() => {
+  setimage({...image,uri:'',base64:''});
+
+}, [])
 
   async function NavigateToExtraction() {
     try {
-
+      setloading(true);
 
    let res = await callGoogleVisionAsync(image.base64==''?CapturedImage:image.base64);
    if(res!==undefined || ''){
+    setloading(false);
       navigation.navigate("Result", {
         imageUri:image.uri==''?CapturedImage:image.uri,
         ExtractedResponse:res.text
@@ -29,13 +35,14 @@ const Home = ({ navigation,route }) => {
 }
     }
     catch (err) {
+      setloading(false);
       console.log(err);
     }
   }
   
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes:'Images' ,
       allowsEditing: true,
       aspect: [4, 3],
       base64: true,
@@ -52,8 +59,15 @@ const Home = ({ navigation,route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.DummyImage} >
+      
+      {loading?(
+          <View style={{position:'absolute',zIndex:100,alignSelf:'center'}}>
+        <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: '100%', height: 500,opacity:1 }}  />
+        </View>
+        ):<></>}
             {
               CapturedImage==='' && image.uri==''?(
+                
                 <SVG.ImageIcon/>
               ):
               image.uri!==''?
@@ -79,7 +93,7 @@ const Home = ({ navigation,route }) => {
           <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
         
         ) : (
-          <Button title={"Extract Text"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary} />} onPress={NavigateToExtraction}/>
+          <Button title={!loading?"Extract Text":'Extracting Text...'} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={!loading?<SVG.ImageGalleryIcon color={colors.secondary} />: <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: 80, height: 80,opacity:1 }}  />} onPress={NavigateToExtraction}/>
 
         )}
       </View>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Text,Dimensions,TextInput,Image, Pressable,Animated } from 'react-native';
+import { View, Text,Dimensions,TextInput,Image, Pressable,Animated, ToastAndroid } from 'react-native';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
 import * as Clipboard from 'expo-clipboard';
@@ -15,6 +15,7 @@ const Result = ({ navigation, route }) => {
 
   const copyToClipboard = () => {
      Clipboard.setString(ExtractedText);
+     ToastAndroid.show('Content Copied',1000);
     };
 
 
@@ -22,28 +23,24 @@ const Result = ({ navigation, route }) => {
     navigation.setOptions({
       headerTitle: 'Extracted Text',
       headerTitleAlign:'left',
-
-      headerRight: () => {
-        return (
-          <Button title={"Select new"} onPress={() => navigation.navigate('Home', {
-            imageUri:'',
-          })} textColor={colors.secondary} heightProp ={40} filledColor={colors.primary} borderwidth={0} haveIcon={false} widthProp={110} />
-          
-        )
-      }
+      
   })
   },[navigation])
   return (
-    <View style={{ flex: 1, alignItems: 'center', backgroundColor: colors.secondary }}>
-      <Pressable android_ripple={{borderless:true,radius:width-40,color:'#c4c4c4'}}>
-        <Image source={{ uri: "data:image/jpg;base64," + imageUri }} style={{ marginVertical: 20, width: width - 40, height: height / 3, borderRadius: 15 }} />
-        </Pressable>
-      <View style={{flex:3,paddingHorizontal:24}}>
+    <View style={{ flex: 1,marginTop:2,paddingTop:20,  backgroundColor: colors.secondary }}>
+      {/* <Pressable android_ripple={{borderless:false,radius:width-100,color:'#c4c4c4'}} style={{marginVertical:20}}>
+        <Image source={{ uri: "data:image/jpg;base64," + imageUri }} style={{  width: width - 40, height: height / 3, borderRadius: 15 }} />
+        </Pressable> */}
+      <View style={{flex:1,paddingHorizontal:24}}>
         <TextInput style={{color:colors.primary,fontSize:18}} value={ExtractedText} onChangeText={(text)=>setExtractedText(text)} multiline={true}/>
       </View>
-        <View style={{position:"absolute",alignSelf:'center',bottom:60}}>
-<Button title={"Copy Content to Clipboard"} textColor={colors.primary} filledColor={colors.Attention} borderwidth={0} haveIcon={true} Icon={<SVG.CopyIcon />} onPress={copyToClipboard}/>
-      </View>
+        <Pressable style={{position:"absolute",alignSelf:'center',backgroundColor:'#fff',bottom:60,right:20,padding:20,borderRadius:150}}
+        onPress={()=>copyToClipboard()}
+        android_ripple={{borderless:true,radius:40,color:'#c4c4c450'}}
+        >
+          <SVG.CopyIcon />
+          </Pressable>
+      
       
     </View>
   )
