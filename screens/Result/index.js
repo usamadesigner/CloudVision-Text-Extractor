@@ -21,12 +21,13 @@ const Result = ({ navigation, route }) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: 'Extracted Text',
+      headerTitleAlign:'left',
 
       headerRight: () => {
         return (
           <Button title={"Select new"} onPress={() => navigation.navigate('Home', {
             imageUri:'',
-          })} textColor={colors.secondary} heightProp ={44} filledColor={colors.primary} borderwidth={0} haveIcon={false} widthProp={110} />
+          })} textColor={colors.secondary} heightProp ={40} filledColor={colors.primary} borderwidth={0} haveIcon={false} widthProp={110} />
           
         )
       }
@@ -35,9 +36,9 @@ const Result = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', backgroundColor: colors.secondary }}>
       <Pressable android_ripple={{borderless:true,radius:width-40,color:'#c4c4c4'}}>
-        <Image source={{ uri: "data:image/jpg;base64," + imageUri }} style={{elevation:5, marginVertical: 20, width: width - 40, height: height / 3, borderRadius: 15 }} />
+        <Image source={{ uri: "data:image/jpg;base64," + imageUri }} style={{ marginVertical: 20, width: width - 40, height: height / 3, borderRadius: 15 }} />
         </Pressable>
-      <View style={{flex:3,padding:15}}>
+      <View style={{flex:3,paddingHorizontal:24}}>
         <TextInput style={{color:colors.primary,fontSize:18}} value={ExtractedText} onChangeText={(text)=>setExtractedText(text)} multiline={true}/>
       </View>
         <View style={{position:"absolute",alignSelf:'center',bottom:60}}>

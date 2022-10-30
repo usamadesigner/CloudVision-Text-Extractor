@@ -4,49 +4,70 @@ import { colors,SVG } from '../../constants';
 import Button from '../../components/Button';
 import callGoogleVisionAsync from '../../HelperFunction';
 import * as ImagePicker from 'expo-image-picker';
-
+import base64 from 'react-native-base64';
 const { width, height } = Dimensions.get('window');
 const Home = ({ navigation,route }) => {
   const { CapturedImage } = route.params;
+    const [image, setimage] = React.useState({
+      uri:'',
+      base64:'',
+    })
     function onCapturewithCamera(){
         navigation.push('CaptureImage');
     }
+
   async function NavigateToExtraction() {
     try {
-   let res = await callGoogleVisionAsync(CapturedImage);
+
+
+   let res = await callGoogleVisionAsync(image.base64==''?CapturedImage:image.base64);
+   if(res!==undefined || ''){
       navigation.navigate("Result", {
-        imageUri:CapturedImage,
+        imageUri:image.uri==''?CapturedImage:image.uri,
         ExtractedResponse:res.text
  })
+}
     }
     catch (err) {
       console.log(err);
     }
- 
-
-      // navigation.push('Result', {
-      //   imageUri:CapturedImage
-      // });
   }
   
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      base64: true,
+      quality: 1,
+      exif: false,
+      isImageMirror:false
+    });
+
+    if (!result.cancelled) {
+      setimage({...image,uri:result.uri,base64:result.base64});   
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.DummyImage} >
-
             {
-              CapturedImage===''?(
+              CapturedImage==='' && image.uri==''?(
                 <SVG.ImageIcon/>
               ):
-            (<Image source={{ uri: "data:image/jpg;base64," + CapturedImage }}  style={{height: height / 1.8,width: width - 40,  borderRadius:15}}/>)
+              image.uri!==''?
+            (<Image source={{ uri:  image.uri} }  style={{height: height / 1.8,width: width - 40,  borderRadius:15}}/>):
+            (
+              <Image source={{ uri:  "data:image/jpg;base64," + CapturedImage} }  style={{height: height / 1.8,width: width - 40,  borderRadius:15}}/>
+            )
           }
-        
-           
           </View>
       <View style={{ marginTop: 40 }}>
-        {CapturedImage === '' ? (
-          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary} />} />
+        {CapturedImage === '' && image.uri=='' ? (
+          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary}  />} onPress={pickImage} />
         ) : (
-          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} borderwidth={1} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
+          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} borderwidth={1} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={()=>{setimage({...image,uri:'',base64:''});navigation.setParams({CapturedImage: ''}) }}/>
         )
         }
           </View>
@@ -54,7 +75,7 @@ const Home = ({ navigation,route }) => {
           <Text style={styles.OddText}>OR</Text>
         </View>
       <View>
-        {CapturedImage === '' ? (
+        {CapturedImage === '' && image.uri==='' ? (
           <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
         
         ) : (

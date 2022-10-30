@@ -5,7 +5,7 @@ import * as MediaLibary from 'expo-media-library';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
 
-const { width,height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default function CaptureImage({navigation}) {
   let cameraRef = useRef();
@@ -39,7 +39,7 @@ export default function CaptureImage({navigation}) {
 
   let takePicture =async () => {
     let options = {
-      quality: 0,
+      quality: 1,
       base64: true,
       exif: false,
       isImageMirror:false
@@ -77,10 +77,10 @@ export default function CaptureImage({navigation}) {
           </TouchableOpacity>
         <View style={styles.buttonContainer}>
           <View style={{flex:1}}>
-          <Button title={"Discard"}  haveIcon={true} Icon={<SVG.CancelIcon color={colors.Tertiary}/>} filledColor={`${colors.primary}50`} textColor={colors.secondary} onPress={()=>navigation.pop()}  borderwidth={0} widthProp={width / 2 - 40} />
+          <Button title={"Discard"}  haveIcon={true} Icon={<SVG.CancelIcon color={colors.Tertiary}/>} filledColor={`${colors.primary}80`} textColor={colors.secondary} onPress={()=>navigation.pop()}  borderwidth={0} widthProp={width / 2 - 40} />
           </View>
           <View >
-            <Button title={"Capture"} haveIcon={true} Icon={<SVG.CaptureIcon />} onPress={takePicture}   widthProp={width / 2 - 40} borderwidth={0} filledColor={`${colors.Attention}80`} />
+            <Button title={"Capture"} haveIcon={true} Icon={<SVG.CaptureIcon />} onPress={takePicture}   widthProp={width / 2 - 40} borderwidth={0} filledColor={`${colors.Attention}`} />
             </View>
           </View>
       </Camera>
