@@ -1,10 +1,11 @@
 
+import {API_KEY} from "@env"
 //this endpoint will tell Google to use the Vision API. We are passing in our key as well.
-const API='AIzaSyDnmmhLxRnUv6sXdcE21H016Kr-AdtQsEs';
-const API_URL = `https://vision.googleapis.com/v1/images:annotate?key=${API}`;
+// const API='AIzaSyDnmmhLxRnUv6sXdcE21H016Kr-AdtQsEs';
+const API_URL = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`;
 function generateBody(image) {
   console.log(image)
-  console.log(process.env.REACT_APP_API_KEY)
+  console.log(API_KEY)
   const body = {
     requests: [
       {
