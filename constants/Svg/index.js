@@ -8,4 +8,6 @@ import CopyIcon from "./CopyIcon";
 import Flip from "./Flip";
 import FlashOff from "./Flashoff";
 import FlashOn from "./Flashon";
-export { CameraIcon,FlashOff,FlashOn, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon, Flip };
+import Edit from './Edit';
+import Tick from './Tick';
+export { CameraIcon,Edit,Tick,FlashOff,FlashOn, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon, Flip };
