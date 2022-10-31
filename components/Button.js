@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     __ButtonText: {
         fontSize: 16,
-        fontWeight:'900'
+        fontWeight:'600'
     }
 })
 

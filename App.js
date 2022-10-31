@@ -4,12 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Home,Result,CaptureImage} from './screens';
 import { SVG } from './constants';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
+    <RootSiblingParent>
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' screenOptions={{
         headerTitle: "AI Text Converter",
@@ -29,6 +31,7 @@ function App() {
         <Stack.Screen name="CaptureImage" component={CaptureImage} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
+  </RootSiblingParent>
   );
 }
 

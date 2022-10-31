@@ -5,8 +5,11 @@ import Button from '../../components/Button';
 import callGoogleVisionAsync from '../../HelperFunction';
 import * as ImagePicker from 'expo-image-picker';
 import Lottie from 'lottie-react-native';
+import { useIsFocused } from '@react-navigation/native';
+
 const { width, height } = Dimensions.get('window');
 const Home = ({ navigation,route }) => {
+  const isFocused = useIsFocused();
   const { CapturedImage } = route.params;
   const [loading, setloading] = React.useState(false)
     const [image, setimage] = React.useState({
@@ -18,7 +21,6 @@ const Home = ({ navigation,route }) => {
     }
 React.useEffect(() => {
   setimage({...image,uri:'',base64:''});
-
 }, [])
 
   async function NavigateToExtraction() {

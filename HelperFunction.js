@@ -40,6 +40,6 @@ async function callGoogleVisionAsync(image) {
   // console.log('google Result ',result);
   return detectedText
   ? detectedText
-  : { text: "This image doesn't contain any text!" };
+  : { text: "" };
 }
 export default callGoogleVisionAsync;
