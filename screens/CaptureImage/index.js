@@ -5,7 +5,8 @@ import * as MediaLibary from 'expo-media-library';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
 
-const { width } = Dimensions.get('window');
+const { width ,height} = Dimensions.get('window');
+const newHeight = Math.round((width * 16) / 9);
 
 export default function CaptureImage({navigation}) {
   let cameraRef = useRef();
@@ -13,6 +14,7 @@ export default function CaptureImage({navigation}) {
   const [haslibraryPermission, sethaslibraryPermission] = useState(null);
   const [type, setType] = useState('back');
   const [FlashMode, setFlashMode] = useState('off')
+  
 
   const ChangeType=()=>{
     setType(type === 'back' ? 'front' : 'back');
@@ -24,7 +26,6 @@ export default function CaptureImage({navigation}) {
     (async () => {
       const { Camerastatus } = await Camera.requestCameraPermissionsAsync();
       const { librarystatus } = await MediaLibary.requestPermissionsAsync();
-    
       setHasCameraPermission(Camerastatus === 'granted');
       sethaslibraryPermission(librarystatus === 'granted'); 
     })();
@@ -57,9 +58,12 @@ export default function CaptureImage({navigation}) {
       <Camera style={styles.camera}
         ref={cameraRef}
         type={type}
+        whiteBalance='auto'
         autoFocus={true}
-        ratio={"17:9"}
+
+        ratio="16.3:9.5"
         flashMode={FlashMode}
+        accessibilityLabel={'Camera display Screen'}
         useCamera2Api={false}
       >
          <TouchableOpacity onPress={()=>ChangeFlash()} style={{ backgroundColor:`${colors.secondary}50`, padding:5,borderRadius:10 ,position: 'absolute', right: 20, top: 72 }}>
@@ -93,7 +97,9 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
     justifyContent: 'center',
- alignItems:'center'
+ alignItems:'center',
+ height:newHeight-10,
+ width:'100%'
   },
   buttonContainer: {
     flex: 1,

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Text,Dimensions,TextInput,Keyboard, } from 'react-native';
+import { View, Text,Dimensions,TextInput,Keyboard, SliderBase } from 'react-native';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
 import * as Clipboard from 'expo-clipboard';
@@ -66,7 +66,7 @@ const [isEditable, setisEditable] = React.useState(false)
   })
   },[navigation])
 
-  if(ExtractedText===""){
+  if(ExtractedResponse===""){
     return(
       <View style={{flex:1,zIndex:100,alignItems:'center',justifyContent:"center",backgroundColor:colors.secondary}}>
       <Lottie source={require('../../assets/empty.json')} autoPlay style={{ width: '100%', height: height/1.7,opacity:1 }}  />
@@ -87,8 +87,10 @@ const [isEditable, setisEditable] = React.useState(false)
       <View style={{flex:1,paddingHorizontal:24}}>
         <TextInput   
         ref={inputRef}    
- style={{color:colors.primary,fontSize:18}}
+ style={{color:colors.primary,fontSize:24}}
    value={ExtractedText} 
+   placeholder={'You removed all the text'}
+   placeholderTextColor="#c4c4c4"
    onChangeText={(text)=>setExtractedText(text)}
     multiline={true} 
     editable={isEditable} />

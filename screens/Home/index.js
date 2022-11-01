@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Dimensions ,Image} from 'react-native';
+import { View, Text, StyleSheet, Dimensions,Pressable ,Image} from 'react-native';
 import { colors,SVG } from '../../constants';
 import Button from '../../components/Button';
 import callGoogleVisionAsync from '../../HelperFunction';
@@ -19,9 +19,20 @@ const Home = ({ navigation,route }) => {
     function onCapturewithCamera(){
         navigation.push('CaptureImage');
     }
+ 
+  
 React.useEffect(() => {
+  navigation.setOptions({
+    headerLeft: () => {
+      return (
+        <Pressable>
+          <SVG.MenuIcon/>
+      </Pressable>
+    )
+  }
+  })
   setimage({...image,uri:'',base64:''});
-}, [])
+}, [isFocused,navigation])
 
   async function NavigateToExtraction() {
     try {
@@ -99,7 +110,6 @@ React.useEffect(() => {
 
         )}
       </View>
-        
     </View>
   )
 }
