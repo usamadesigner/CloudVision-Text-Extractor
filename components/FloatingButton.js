@@ -10,8 +10,8 @@ const FloatingButton = (props) => {
         bottom:props.bottom,
         right:20,
         padding:20,
-        borderRadius:150,
-        shadowColor:`${colors.primary}40`,
+        borderRadius:40,
+        shadowColor:`${colors.primary}20`,
         shadowOffset:{
           width:0,
           height:2

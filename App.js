@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Home,Result,CaptureImage} from './screens';
 import { RootSiblingParent } from 'react-native-root-siblings';
-
+import Menu from './screens/Menu'
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -17,9 +17,14 @@ function App() {
         headerTitleAlign: 'center',
         headerShadowVisible: false,
       }}>
+        <Stack.Group>
         <Stack.Screen name="Home" component={Home} initialParams={{ CapturedImage: '' }} />
         <Stack.Screen name="Result" component={Result} initialParams={{imageUri:''}} options={{headerShown:true,headerTitleAlign:'left',headerBackButtonMenuEnabled:true}}/>
         <Stack.Screen name="CaptureImage" component={CaptureImage} options={{headerShown:false}}/>
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen  name='Menu' component={Menu} options={{headerShown:false}}/>
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   </RootSiblingParent>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Text,Dimensions,TextInput,Keyboard, SliderBase } from 'react-native';
+import { View, Text,Dimensions,TextInput,Keyboard, SliderBase, Pressable, ScrollView } from 'react-native';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
 import * as Clipboard from 'expo-clipboard';
@@ -14,7 +14,7 @@ let BOTTOM=60;
 const inputRef=React.useRef();
   const [ExtractedText, setExtractedText] = React.useState(ExtractedResponse);
 const [isEditable, setisEditable] = React.useState(false)
-
+const [fontSize, setfontSize] = React.useState(18);
   const copyToClipboard = () => {
      Clipboard.setString(ExtractedText);
      Toast.show('Text Copied Successfully.', {
@@ -60,11 +60,27 @@ const [isEditable, setisEditable] = React.useState(false)
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle:  ExtractedText!==''?'Extracted Text':'No Text Found',
+      headerTitle:  ExtractedResponse!==''?'Extracted Text':'No Text Found',
       headerTitleAlign:'left',
+      headerRight:()=>(
+        <Pressable onPress={()=>{ fontSize===18?setfontSize(20):fontSize===20? setfontSize(22):fontSize==22?setfontSize(18):setfontSize(20)}}
+        android_ripple={{borderless:true,radius:30,color:'#c4c4c4'}}hitSlop={20}
+        >
+          <Text style={{color:'#000',padding:10}}>
+            {
+              fontSize===18?
+              'Aå'
+              :fontSize==20?
+              'Aa'
+              :
+              'AA'
+            }
+            </Text>
+        </Pressable>
+      )
       
   })
-  },[navigation])
+  },[navigation,fontSize])
 
   if(ExtractedResponse===""){
     return(
@@ -81,19 +97,28 @@ const [isEditable, setisEditable] = React.useState(false)
   else
   return (
     <View style={{ flex: 1,marginTop:2,paddingTop:20,  backgroundColor: colors.secondary }}>
-      {/* <Pressable android_ripple={{borderless:false,radius:width-100,color:'#c4c4c4'}} style={{marginVertical:20}}>
-        <Image source={{ uri: "data:image/jpg;base64," + imageUri }} style={{  width: width - 40, height: height / 3, borderRadius: 15 }} />
-        </Pressable> */}
-      <View style={{flex:1,paddingHorizontal:24}}>
-        <TextInput   
+      
+      <View style={{height:'100%',paddingHorizontal:24}}>
+        {!isEditable?(
+          <ScrollView style={{height:'100%'}} showsVerticalScrollIndicator={false} >
+          <Text style={{color:colors.primary,fontSize:fontSize}}>
+            {ExtractedText}
+          </Text>
+        </ScrollView>
+        ):(
+
+        <TextInput  
+        
         ref={inputRef}    
- style={{color:colors.primary,fontSize:24}}
+ style={{height:'100%',color:colors.primary,fontSize:fontSize}}
    value={ExtractedText} 
    placeholder={'You removed all the text'}
    placeholderTextColor="#c4c4c4"
    onChangeText={(text)=>setExtractedText(text)}
     multiline={true} 
     editable={isEditable} />
+        )}
+        
       </View>
       <FloatingButton icon={!isEditable?<SVG.Edit/>:<SVG.Tick/>} onClick={()=>EditingText()} bottom={BOTTOM*2.3}/>
       <FloatingButton icon={<SVG.CopyIcon/>} onClick={()=>copyToClipboard()} bottom={BOTTOM}/>

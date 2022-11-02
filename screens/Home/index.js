@@ -25,7 +25,7 @@ React.useEffect(() => {
   navigation.setOptions({
     headerLeft: () => {
       return (
-        <Pressable>
+        <Pressable onPress={()=>navigation.navigate('Menu')}>
           <SVG.MenuIcon/>
       </Pressable>
     )
