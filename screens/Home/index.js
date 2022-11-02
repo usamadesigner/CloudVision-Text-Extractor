@@ -1,15 +1,23 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Dimensions,Pressable ,Image} from 'react-native';
+import { View, Text, StyleSheet, Dimensions,Pressable ,Image, Switch} from 'react-native';
 import { colors,SVG } from '../../constants';
 import Button from '../../components/Button';
 import callGoogleVisionAsync from '../../HelperFunction';
 import * as ImagePicker from 'expo-image-picker';
 import Lottie from 'lottie-react-native';
 import { useIsFocused } from '@react-navigation/native';
+import { useTheme } from '../../themes';
 
 const { width, height } = Dimensions.get('window');
 const Home = ({ navigation,route }) => {
-  const isFocused = useIsFocused();
+  const { theme, updateTheme } = useTheme();
+	const changeTheme = () => updateTheme(theme.themeMode);
+	const [isEnabled, setIsEnabled] = React.useState(theme.themeMode=='dark'?true:false);
+	const toggleSwitch = () => {
+		setIsEnabled(previousState => !previousState);
+		updateTheme(theme.themeMode);
+	};
+ const isFocused = useIsFocused();
   const { CapturedImage } = route.params;
   const [loading, setloading] = React.useState(false)
     const [image, setimage] = React.useState({
@@ -29,10 +37,22 @@ React.useEffect(() => {
           <SVG.MenuIcon/>
       </Pressable>
     )
-  }
+  },
+  headerRight:()=>(
+    <Switch
+    trackColor={ { false: theme.primaryLight, true: theme.secondary } }
+    thumbColor={ isEnabled ? theme.gradientEnd : theme.secondaryLight }
+    ios_backgroundColor="#3e3e3e"
+    onValueChange={ () => {
+      setIsEnabled(!isEnabled);
+      updateTheme(theme.themeMode);
+    } }
+    value={ isEnabled }
+    />
+  )
   })
   setimage({...image,uri:'',base64:''});
-}, [isFocused,navigation])
+}, [isFocused,navigation,isEnabled])
 
   async function NavigateToExtraction() {
     try {
@@ -68,9 +88,8 @@ React.useEffect(() => {
       setimage({...image,uri:result.uri,base64:result.base64});   
     }
   };
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{ backgroundColor: theme.background,    }]}>
       <View style={styles.DummyImage} >
       
       {loading?(
@@ -92,9 +111,9 @@ React.useEffect(() => {
           </View>
       <View style={{ marginTop: 40 }}>
         {CapturedImage === '' && image.uri=='' ? (
-          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={colors.secondary}  />} onPress={pickImage} />
+          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={theme.Tertiary}  />} onPress={pickImage} />
         ) : (
-          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} borderwidth={1} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={()=>{setimage({...image,uri:'',base64:''});navigation.setParams({CapturedImage: ''}) }}/>
+          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} borderwidth={1} Icon={<SVG.CameraIcon color={theme.Tertiary} />} onPress={()=>{setimage({...image,uri:'',base64:''});navigation.setParams({CapturedImage: ''}) }}/>
         )
         }
           </View>
@@ -103,10 +122,10 @@ React.useEffect(() => {
         </View>
       <View>
         {CapturedImage === '' && image.uri==='' ? (
-          <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={colors.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
+          <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={theme.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
         
         ) : (
-          <Button title={!loading?"Extract Text":'Extracting Text...'} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={!loading?<SVG.ImageGalleryIcon color={colors.secondary} />: <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: 80, height: 80,opacity:1 }}  />} onPress={NavigateToExtraction}/>
+          <Button title={!loading?"Extract Text":'Extracting Text...'} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={!loading?<SVG.ImageGalleryIcon color={colors.secondary} />: <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: 80, height: 80,opacity:1 }}  />} onPress={NavigateToExtraction}/>
 
         )}
       </View>
@@ -116,7 +135,6 @@ React.useEffect(() => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.secondary,
         justifyContent: 'center',
         alignItems:'center'
     },

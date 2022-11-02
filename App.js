@@ -4,14 +4,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Home,Result,CaptureImage} from './screens';
 import { RootSiblingParent } from 'react-native-root-siblings';
+import ThemeWrapper from './themes/Themewrapper';
+import ThemeProvider, {useThemeContext } from './themes';
 import Menu from './screens/Menu'
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <RootSiblingParent>
-    <NavigationContainer >
-      <Stack.Navigator  initialRouteName='Home' screenOptions={{
+ <ThemeProvider>
+  <ThemeWrapper>
+
+
+    <NavigationContainer  >
+      <Stack.Navigator initialRouteName='Home' screenOptions={{
         headerTitle: "AI Text Converter",
         headerStyle: { height:Platform.OS=='android'? 80 : 60}, 
         headerTitleAlign: 'center',
@@ -27,6 +33,8 @@ function App() {
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
+    </ThemeWrapper>
+ </ThemeProvider>
   </RootSiblingParent>
   );
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Text,Dimensions,TextInput,Keyboard, SliderBase, Pressable, ScrollView } from 'react-native';
+import { View, Text,Dimensions,TextInput, Pressable, ScrollView } from 'react-native';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
 import * as Clipboard from 'expo-clipboard';
@@ -120,6 +120,7 @@ const [fontSize, setfontSize] = React.useState(18);
         )}
         
       </View>
+      <FloatingButton icon={!isEditable?<SVG.Edit/>:<SVG.Tick/>} onClick={()=>Undo()} bottom={BOTTOM*2.3}/>
       <FloatingButton icon={!isEditable?<SVG.Edit/>:<SVG.Tick/>} onClick={()=>EditingText()} bottom={BOTTOM*2.3}/>
       <FloatingButton icon={<SVG.CopyIcon/>} onClick={()=>copyToClipboard()} bottom={BOTTOM}/>
       

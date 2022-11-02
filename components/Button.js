@@ -1,13 +1,16 @@
 import React from 'react';
 import { View ,StyleSheet,Text,Dimensions, TouchableOpacity} from 'react-native'
 import { colors } from '../constants';
+import { useTheme } from '../themes';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 function Button({outlined,onPress,title,Icon,haveIcon,widthProp,filledColor,borderwidth,textColor,heightProp}) {
+    const {theme}=useTheme();
     return (
         <TouchableOpacity onPress={onPress} style={[styles.container,
             {
-                backgroundColor: outlined ? colors.secondary : filledColor || colors.primary,
+                borderColor:theme.primary,
+                backgroundColor: outlined ? theme.secondary : filledColor || theme.primary,
                 borderWidth:borderwidth || 0,
                 width: widthProp || width - 40,
                 height:heightProp || 56,
@@ -37,7 +40,6 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 10,
         paddingVertical: 12,
-        borderColor:colors.primary,
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',

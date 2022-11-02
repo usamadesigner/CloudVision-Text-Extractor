@@ -10,4 +10,5 @@ import FlashOff from "./Flashoff";
 import FlashOn from "./Flashon";
 import Edit from './Edit';
 import Tick from './Tick';
-export { CameraIcon,Edit,Tick,FlashOff,FlashOn, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon, Flip };
+import Undo from './Undo';
+export { CameraIcon,Edit,Tick,Undo,FlashOff,FlashOn, ImageIcon, MenuIcon, CancelIcon, CopyIcon, CaptureIcon, ImageGalleryIcon, Flip };
