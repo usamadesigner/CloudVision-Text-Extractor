@@ -31,17 +31,19 @@ const Home = ({ navigation,route }) => {
   
 React.useEffect(() => {
   navigation.setOptions({
+    headerStyle:{backgroundColor:theme.background},
+    headerTitleStyle:{color:theme.primary},
     headerLeft: () => {
       return (
         <Pressable onPress={()=>navigation.navigate('Menu')}>
-          <SVG.MenuIcon/>
+          <SVG.MenuIcon color={theme.primary}/>
       </Pressable>
     )
   },
   headerRight:()=>(
     <Switch
-    trackColor={ { false: theme.primaryLight, true: theme.secondary } }
-    thumbColor={ isEnabled ? theme.gradientEnd : theme.secondaryLight }
+    trackColor={ { false: theme.primary, true: theme.primary } }
+    thumbColor={ isEnabled ? theme.secondary : theme.Attention }
     ios_backgroundColor="#3e3e3e"
     onValueChange={ () => {
       setIsEnabled(!isEnabled);
