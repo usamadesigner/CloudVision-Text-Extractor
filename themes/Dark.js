@@ -1,10 +1,10 @@
 const Dark={
         themeMode: 'dark',
-        background:'#333333',
+        background:'#262833',
         white:'#ffffff',
         black:'#000000',
-        Attention:'#f6d52350',
-        primary:'#F2C94C',
+        Attention:'#BDA72E',
+        primary:'#F8F5F5',
         secondary:'#333333',
         Tertiary:'#c4c4c4'
     

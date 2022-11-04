@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, Dimensions,Pressable ,Image, Switch} from 'react-native';
-import { colors,SVG } from '../../constants';
+import {SVG } from '../../constants';
 import Button from '../../components/Button';
 import callGoogleVisionAsync from '../../HelperFunction';
 import * as ImagePicker from 'expo-image-picker';
@@ -92,7 +92,7 @@ React.useEffect(() => {
   };
   return (
     <View style={[styles.container,{ backgroundColor: theme.background,    }]}>
-      <View style={styles.DummyImage} >
+      <View style={[styles.DummyImage,{backgroundColor: theme.Tertiary}]} >
       
       {loading?(
           <View style={{position:'absolute',zIndex:100,alignSelf:'center'}}>
@@ -113,21 +113,21 @@ React.useEffect(() => {
           </View>
       <View style={{ marginTop: 40 }}>
         {CapturedImage === '' && image.uri=='' ? (
-          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={colors.secondary} Icon={<SVG.ImageGalleryIcon color={theme.Tertiary}  />} onPress={pickImage} />
+          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={<SVG.ImageGalleryIcon color={theme.secondary}  />} onPress={pickImage} />
         ) : (
-          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={colors.primary} borderwidth={1} Icon={<SVG.CameraIcon color={theme.Tertiary} />} onPress={()=>{setimage({...image,uri:'',base64:''});navigation.setParams({CapturedImage: ''}) }}/>
+          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={theme.primary} borderwidth={1} Icon={<SVG.CameraIcon color={theme.Tertiary} />} onPress={()=>{setimage({...image,uri:'',base64:''});navigation.setParams({CapturedImage: ''}) }}/>
         )
         }
           </View>
           <View style={{marginVertical:16}}>
-          <Text style={styles.OddText}>OR</Text>
+          <Text style={[styles.OddText,{color:theme.primary}]}>OR</Text>
         </View>
       <View>
         {CapturedImage === '' && image.uri==='' ? (
-          <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={theme.primary} Icon={<SVG.CameraIcon color={colors.primary} />} onPress={onCapturewithCamera} />
+          <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={theme.primary} Icon={<SVG.CameraIcon color={theme.primary} />} onPress={onCapturewithCamera} />
         
         ) : (
-          <Button title={!loading?"Extract Text":'Extracting Text...'} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={!loading?<SVG.ImageGalleryIcon color={colors.secondary} />: <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: 80, height: 80,opacity:1 }}  />} onPress={NavigateToExtraction}/>
+          <Button title={!loading?"Extract Text":'Extracting Text...'} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={!loading?<SVG.ImageGalleryIcon color={theme.secondary} />: <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: 80, height: 80,opacity:1 }}  />} onPress={NavigateToExtraction}/>
 
         )}
       </View>
@@ -145,12 +145,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
         height: height / 1.8,
         width: width - 40,
-        backgroundColor: colors.Tertiary,
+        
         borderRadius:15
     },
     OddText: {
         fontSize: 14,
-        color:colors.primary,
     }
 })
 

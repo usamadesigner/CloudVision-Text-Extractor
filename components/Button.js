@@ -1,6 +1,5 @@
 import React from 'react';
 import { View ,StyleSheet,Text,Dimensions, TouchableOpacity} from 'react-native'
-import { colors } from '../constants';
 import { useTheme } from '../themes';
 
 const { width } = Dimensions.get('window');
@@ -10,7 +9,7 @@ function Button({outlined,onPress,title,Icon,haveIcon,widthProp,filledColor,bord
         <TouchableOpacity onPress={onPress} style={[styles.container,
             {
                 borderColor:theme.primary,
-                backgroundColor: outlined ? theme.secondary : filledColor || theme.primary,
+                backgroundColor: outlined ? theme.background : filledColor || theme.primary,
                 borderWidth:borderwidth || 0,
                 width: widthProp || width - 40,
                 height:heightProp || 56,

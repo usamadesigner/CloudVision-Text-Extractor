@@ -15,13 +15,13 @@ function App() {
  <ThemeProvider>
   <ThemeWrapper>
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName='Home' screenOptions={{
+      <Stack.Navigator initialRouteName='Home' >
+        <Stack.Group screenOptions={{
         headerTitle: "AI Text Converter",
         headerStyle: { height:Platform.OS=='android'? 80 : 60,}, 
         headerTitleAlign: 'center',
         headerShadowVisible: false,
       }}>
-        <Stack.Group>
         <Stack.Screen name="Home" component={Home} initialParams={{ CapturedImage: '' }} />
         <Stack.Screen name="Result" component={Result} initialParams={{imageUri:''}} options={{headerShown:true,headerTitleAlign:'left',headerBackButtonMenuEnabled:true}}/>
         <Stack.Screen name="CaptureImage" component={CaptureImage} options={{headerShown:false}}/>
