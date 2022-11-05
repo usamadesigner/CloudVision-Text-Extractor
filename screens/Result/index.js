@@ -27,7 +27,8 @@ const Result = ({ navigation, route }) => {
       animation:true,
       position:height-110,
       keyboardAvoiding:true,
-      backgroundColor:theme.secondary,
+      textColor:theme.secondary,
+      backgroundColor:theme.primary,
       containerStyle:{borderRadius:40}
 
     });
@@ -38,11 +39,12 @@ const Result = ({ navigation, route }) => {
         Toast.show('Text Updated Successfully.', {
           duration: Toast.durations.SHORT,
           shadow:true,
+          textColor:theme.secondary,
+          backgroundColor:theme.primary,
           shadowColor:theme.Attention,
           animation:true,
           position:height-110,
           keyboardAvoiding:true,
-          backgroundColor:theme.secondary,
           containerStyle:{borderRadius:40}
     
         });
@@ -52,11 +54,12 @@ const Result = ({ navigation, route }) => {
           Toast.show('You can Edit Now!', {
           duration: Toast.durations.SHORT,
           shadow:true,
+          textColor:theme.secondary,
+          backgroundColor:theme.primary,
           shadowColor:theme.Attention,
           animation:true,
           position:height-110,
           keyboardAvoiding:true,
-          backgroundColor:theme.secondary,
           containerStyle:{borderRadius:40,}
     
         });

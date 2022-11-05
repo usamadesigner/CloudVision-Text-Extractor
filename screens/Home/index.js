@@ -35,7 +35,7 @@ React.useEffect(() => {
     headerTitleStyle:{color:theme.primary},
     headerLeft: () => {
       return (
-        <Pressable onPress={()=>navigation.navigate('Menu')}>
+        <Pressable onPress={()=>navigation.openDrawer()}>
           <SVG.MenuIcon color={theme.primary}/>
       </Pressable>
     )
