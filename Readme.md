@@ -1,9 +1,4 @@
-# NativeBase Expo Template
 
-The official NativeBase template for [Expo](https://docs.expo.io/)
 
-## Usage
+https://user-images.githubusercontent.com/62393328/200294790-995c30a2-eb0f-495c-a392-9c70d9704d36.mp4
 
-```sh
-expo init my-app --template @native-base/expo-template
-```
