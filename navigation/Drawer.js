@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const Drawers = createDrawerNavigator();
 const Contact = () => {
-
+    const { theme } = useTheme();
     //Function to Open Location 
     function openMap(){
         const url = Platform.select({
@@ -20,8 +20,8 @@ const Contact = () => {
     }
     
     return (
-        <View style={{ flex: 1, backgroundColor: '#fff', alignItems: 'center' }}>
-            <View style={{ width: 334, height: 180, marginTop: 24, alignItems: 'center', justifyContent: 'center', shadowOffset: { width: 0, height: 3 }, shadowColor: '#c4c4c4', shadowRadius: 5, shadowOpacity: 0.2, backgroundColor: '#fff', borderRadius: 20,elevation:2 }}>
+        <View style={{ flex: 1, backgroundColor: theme.background, alignItems: 'center' }}>
+            <View style={{ width: 334, height: 180, marginTop: 24, alignItems: 'center', justifyContent: 'center', shadowOffset: { width: 0, height: 3 }, shadowColor: theme.Attention, shadowRadius: 5, shadowOpacity: 0.2, backgroundColor:theme.background, borderRadius: 20,elevation:2 }}>
                 <OrgLogo />
             </View>
             <View style={{ margin: 20,width:'100%'}}>
@@ -44,23 +44,23 @@ const Contact = () => {
 }
 const About = () => {
     const navigation = useNavigation();
-
+    const { theme } = useTheme();
     return (
-        <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#fff' }}>
-            <View style={{ width: 334, height: 180, marginTop: 24, alignItems: 'center', justifyContent: 'center', shadowOffset: { width: 0, height: 3 }, shadowColor: '#c4c4c4', shadowRadius: 5, shadowOpacity: 0.2, backgroundColor: '#fff', borderRadius: 20 }}>
+        <View style={{ flex: 1, alignItems: 'center', backgroundColor: theme.background }}>
+            <View style={{ width: 334, height: 180, marginTop: 24, alignItems: 'center', justifyContent: 'center', shadowOffset: { width: 0, height: 3 }, shadowColor: theme.Attention, shadowRadius: 5, shadowOpacity: 0.2, backgroundColor: theme.background, borderRadius: 20 }}>
                 <OrgLogo />
             </View>
             <View style={{ margin: 28 }}>
-                <Text style={{ fontSize: 14, fontWeight: '400', fontStyle: 'normal', lineHeight: 28, textAlign: 'left' }} textBreakStrategy="highQuality">
+                <Text style={{ fontSize: 14, fontWeight: '400', fontStyle: 'normal', lineHeight: 28, textAlign: 'left',color:theme.primary }} textBreakStrategy="highQuality">
                     We are a Duo Developers from Pakistan working
                     on projects that can make an impact or bring a
                     change in our system by helping young minds and
                     encouraging them to learn skills that matter rather
                     than wasting time in their early stage of life.
                 </Text>
-                <Text style={{ fontSize: 14, fontWeight: '400', fontStyle: 'normal', lineHeight: 28, textAlign: 'left' }} textBreakStrategy="highQuality">
+                <Text style={{ fontSize: 14, fontWeight: '400', fontStyle: 'normal', lineHeight: 28, textAlign: 'left',color:theme.primary }} textBreakStrategy="highQuality">
                     For any inquiry or Project that you would like to
-                    have hire us for or would like to get a course that could help you become a better Developer <Pressable onPress={() => navigation.navigate('GetinTouch')} style={{ marginBottom: 2 }} hitSlop={25}><Text style={{ color: '#3E7FFF' }}>Contact Us here</Text></Pressable>
+                    have hire us for or would like to get a course that could help you become a better Developer. <Pressable onPress={() => navigation.navigate('GetinTouch')} style={{ marginBottom: 2 }} hitSlop={25}><Text style={{ color: '#3E7FFF' }}>Contact Us here</Text></Pressable>
                 </Text>
             </View>
         </View>
@@ -87,8 +87,8 @@ const Drawer = () => {
         }}
         >
             <Drawers.Screen name="Main" component={Stacks} options={{ headerShown: false, title: 'Home', }} />
-            <Drawers.Screen name="GetinTouch" component={Contact} options={{ headerTitle: "Get In Touch" }} />
-            <Drawers.Screen name="AboutUs" component={About} options={{ headerTitle: "About Us" }} />
+            <Drawers.Screen name="GetinTouch" component={Contact} options={{ headerTitle: "Get In Touch",headerStyle:{backgroundColor:theme.background},headerTitleStyle:{color:theme.primary} }} />
+            <Drawers.Screen name="AboutUs" component={About} options={{ headerTitle: "About Us",headerStyle:{backgroundColor:theme.background},headerTitleStyle:{color:theme.primary}}} />
         </Drawers.Navigator>
     );
 }
