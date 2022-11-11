@@ -87,8 +87,8 @@ const Drawer = () => {
         }}
         >
             <Drawers.Screen name="Main" component={Stacks} options={{ headerShown: false, title: 'Home', }} />
-            <Drawers.Screen name="GetinTouch" component={Contact} options={{ headerTitle: "Get In Touch",headerStyle:{backgroundColor:theme.background},headerTitleStyle:{color:theme.primary} }} />
-            <Drawers.Screen name="AboutUs" component={About} options={{ headerTitle: "About Us",headerStyle:{backgroundColor:theme.background},headerTitleStyle:{color:theme.primary}}} />
+            <Drawers.Screen name="GetinTouch" component={Contact} options={{title:'Get in Touch', headerTitle: "Get In Touch",headerStyle:{backgroundColor:theme.background},headerTitleStyle:{color:theme.primary} }} />
+            <Drawers.Screen name="AboutUs" component={About} options={{title:'About us', headerTitle: "About Us",headerStyle:{backgroundColor:theme.background},headerTitleStyle:{color:theme.primary}}} />
         </Drawers.Navigator>
     );
 }
