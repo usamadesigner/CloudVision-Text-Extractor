@@ -35,7 +35,7 @@ React.useEffect(() => {
     headerTitleStyle:{color:theme.primary},
     headerLeft: () => {
       return (
-        <Pressable onPress={()=>navigation.openDrawer()}>
+        <Pressable onPress={()=>navigation.openDrawer()} style={{padding:10}}>
           <SVG.MenuIcon color={theme.primary}/>
       </Pressable>
     )
@@ -53,8 +53,11 @@ React.useEffect(() => {
     />
   )
   })
+}, [navigation,isEnabled])
+
+React.useEffect(()=>{
   setimage({...image,uri:'',base64:''});
-}, [isFocused,navigation,isEnabled])
+},[isFocused])
 
   async function NavigateToExtraction() {
     try {
@@ -71,7 +74,7 @@ React.useEffect(() => {
     }
     catch (err) {
       setloading(false);
-      console.log(err);
+      // console.log(err);
     }
   }
   
@@ -86,8 +89,8 @@ React.useEffect(() => {
       isImageMirror:false
     });
 
-    if (!result.cancelled) {
-      setimage({...image,uri:result.uri,base64:result.base64});   
+    if (!result.canceled) {
+      setimage({...image,uri:result.assets[0].uri,base64:result.assets[0].base64});   
     }
   };
   return (

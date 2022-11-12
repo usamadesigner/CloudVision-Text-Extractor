@@ -4,8 +4,6 @@ import {API_KEY} from "@env"
 // const API='AIzaSyDnmmhLxRnUv6sXdcE21H016Kr-AdtQsEs';
 const API_URL = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`;
 function generateBody(image) {
-  console.log(image)
-  console.log(API_KEY)
   const body = {
     requests: [
       {
@@ -35,9 +33,7 @@ async function callGoogleVisionAsync(image) {
     body: JSON.stringify(body),
   });
   const result = await response.json();
-  console.log(result);
   const detectedText = result.responses[0]?.fullTextAnnotation;
-  // console.log('google Result ',result);
   return detectedText
   ? detectedText
   : { text: "" };

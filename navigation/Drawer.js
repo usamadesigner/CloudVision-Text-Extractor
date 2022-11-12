@@ -73,7 +73,7 @@ const Drawer = () => {
     const { theme } = useTheme();
 
     return (
-        <Drawers.Navigator screenOptions={{
+        <Drawers.Navigator  screenOptions={{
             lazy: true, drawerIcon: () => { <SVG.MenuIcon color={theme.primary} /> },
             drawerType: 'back',
             freezeOnBlur: true,
