@@ -94,7 +94,7 @@ React.useEffect(()=>{
     }
   };
   return (
-    <View style={[styles.container,{ backgroundColor: theme.background,    }]}>
+    <View style={[styles.container,{ backgroundColor: theme.background,    }]} accessibilityLabel="Home Screen">
       <View style={[styles.DummyImage,{backgroundColor: theme.Tertiary}]} >
       
       {loading?(
@@ -105,10 +105,10 @@ React.useEffect(()=>{
             {
               CapturedImage==='' && image.uri==''?(
                 
-                <SVG.ImageIcon/>
+                <SVG.ImageIcon />
               ):
               image.uri!==''?
-            (<Image source={{ uri:  image.uri} }  style={{height: height / 1.8,width: width - 40,  borderRadius:15}}/>):
+            (<Image source={{ uri:  image.uri} }  style={{height: height / 1.8,width: width - 40,  borderRadius:15}} accessibilityLabel="Image" />):
             (
               <Image source={{ uri:  "data:image/jpg;base64," + CapturedImage} }  style={{height: height / 1.8,width: width - 40,  borderRadius:15}}/>
             )
@@ -116,9 +116,9 @@ React.useEffect(()=>{
           </View>
       <View style={{ marginTop: 40 }}>
         {CapturedImage === '' && image.uri=='' ? (
-          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={<SVG.ImageGalleryIcon color={theme.secondary}  />} onPress={pickImage} />
+          <Button title={"Select from Your Gallery"} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={<SVG.ImageGalleryIcon color={theme.secondary}  />} onPress={pickImage} accessibilityLabel="Select Image from Gallery" />
         ) : (
-          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={theme.primary} borderwidth={1} Icon={<SVG.CameraIcon color={theme.Tertiary} />} onPress={()=>{setimage({...image,uri:'',base64:''});navigation.setParams({CapturedImage: ''}) }}/>
+          <Button title={"Discard Image and Select a New One"} haveIcon={true} outlined={true} textColor={theme.primary} borderwidth={1} Icon={<SVG.CameraIcon color={theme.Tertiary} />} onPress={()=>{setimage({...image,uri:'',base64:''});navigation.setParams({CapturedImage: ''}) }} accessibilityLabel="Discard Image from Text"/>
         )
         }
           </View>
@@ -127,10 +127,10 @@ React.useEffect(()=>{
         </View>
       <View>
         {CapturedImage === '' && image.uri==='' ? (
-          <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={theme.primary} Icon={<SVG.CameraIcon color={theme.primary} />} onPress={onCapturewithCamera} />
+          <Button title={"Capture using Camera"} haveIcon={true} outlined={true}  borderwidth={1} textColor={theme.primary} Icon={<SVG.CameraIcon color={theme.primary} />} onPress={onCapturewithCamera} accessibilityLabel="Capture from Camera" />
         
         ) : (
-          <Button title={!loading?"Extract Text":'Extracting Text...'} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={!loading?<SVG.ImageGalleryIcon color={theme.secondary} />: <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: 80, height: 80,opacity:1 }}  />} onPress={NavigateToExtraction}/>
+          <Button title={!loading?"Extract Text":'Extracting Text...'} haveIcon={true} outlined={false} textColor={theme.secondary} Icon={!loading?<SVG.ImageGalleryIcon color={theme.secondary} />: <Lottie source={require('../../assets/scan.json')} autoPlay style={{ width: 80, height: 80,opacity:1 }}  />} onPress={NavigateToExtraction} accessibilityLabel="Extract Text"/>
 
         )}
       </View>
