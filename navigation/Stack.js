@@ -1,6 +1,6 @@
 import React  from 'react';
 import {Platform} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Home,Result,CaptureImage} from '../screens';
 
 const Stack=createNativeStackNavigator();
@@ -11,7 +11,7 @@ const Stacks=()=>{
         headerStyle: { height:Platform.OS=='android'? 80 : 60,}, 
         headerTitleAlign: 'center',
         headerShadowVisible: false,}}/>
-        <Stack.Screen name="Result" component={Result} initialParams={{imageUri:''}} options={{headerShown:true,headerTitleAlign:'left',headerBackButtonMenuEnabled:true}}/>
+        <Stack.Screen name="Result" component={Result} initialParams={{imageUri:''}} options={{headerShown:true,headerTitleAlign:'left',headerBackButtonMenuEnabled:true}} />
         <Stack.Screen name="CaptureImage" component={CaptureImage} options={{headerShown:false}}/>
       </Stack.Navigator>
     );

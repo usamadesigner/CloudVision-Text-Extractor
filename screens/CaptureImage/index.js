@@ -4,8 +4,7 @@ import { Camera } from 'expo-camera';
 import * as MediaLibary from 'expo-media-library';
 import Button from '../../components/Button';
 import { colors, SVG } from '../../constants';
-
-const { width ,height} = Dimensions.get('window');
+const { width} = Dimensions.get('window');
 const newHeight = Math.round((width * 16) / 9);
 
 export default function CaptureImage({navigation}) {
@@ -14,8 +13,6 @@ export default function CaptureImage({navigation}) {
   const [haslibraryPermission, sethaslibraryPermission] = useState(null);
   const [type, setType] = useState('back');
   const [FlashMode, setFlashMode] = useState('off')
-  
-
   const ChangeType=()=>{
     setType(type === 'back' ? 'front' : 'back');
   }
@@ -37,7 +34,6 @@ export default function CaptureImage({navigation}) {
  else if (hasCameraPermission===null) {
     return <Text>No access to camera</Text>;
   }
-
   let takePicture =async () => {
     let options = {
       quality: 1,
@@ -51,7 +47,6 @@ export default function CaptureImage({navigation}) {
       })
   }
 
-
   return (
     <SafeAreaView style={{flex:1}}>
       <StatusBar />
@@ -60,8 +55,7 @@ export default function CaptureImage({navigation}) {
         type={type}
         whiteBalance='auto'
         autoFocus={true}
-
-        ratio="16.3:9.5"
+        ratio="16:9"
         flashMode={FlashMode}
         accessibilityLabel={'Camera display Screen'}
         useCamera2Api={false}

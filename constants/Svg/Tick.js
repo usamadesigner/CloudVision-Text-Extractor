@@ -11,7 +11,7 @@ const Tick = (props) => (
   >
     <Path
       d="m4.125 13.125 5.25 5.25 10.5-11.25"
-      stroke="#000"
+      stroke={props.color || '#000'}
       strokeWidth={3}
       strokeLinecap="round"
       strokeLinejoin="round"
