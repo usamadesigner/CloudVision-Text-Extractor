@@ -1,8 +1,12 @@
 
-import {API_KEY} from "@env"
+import {API_KEY1,API_KEY2,API_KEY3,API_KEY4} from "@env"
 //this endpoint will tell Google to use the Vision API. We are passing in our key as well.
-// const API='AIzaSyDnmmhLxRnUv6sXdcE21H016Kr-AdtQsEs';
-const API_URL = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`;
+
+const API_URL = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY1}`;
+const API_URL2 = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY2}`;
+const API_URL3 = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY3}`;
+const API_URL4 = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY4}`;
+
 function generateBody(image) {
   const body = {
     requests: [
@@ -33,6 +37,8 @@ async function callGoogleVisionAsync(image) {
     body: JSON.stringify(body),
   });
   const result = await response.json();
+  console.log('res',result.error.code);
+  
   const detectedText = result.responses[0]?.fullTextAnnotation;
   return detectedText
   ? detectedText

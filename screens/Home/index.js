@@ -64,6 +64,7 @@ React.useEffect(()=>{
       setloading(true);
 
    let res = await callGoogleVisionAsync(image.base64==''?CapturedImage:image.base64);
+   console.log('res',res);
    if(res!==undefined || ''){
     setloading(false);
       navigation.navigate("Result", {

@@ -126,7 +126,7 @@ const Result = ({ navigation, route }) => {
               editable={isEditable} />
           )}
         </View>
-        <FloatingButton icon={!isEditable ? <SVG.Tick color={theme.primary} /> : <SVG.Edit color={theme.primary} />} onClick={() => EditingText()} bottom={BOTTOM * 2.3} />
+        <FloatingButton icon={isEditable ? <SVG.Tick color={theme.primary} /> : <SVG.Edit color={theme.primary} />} onClick={() => EditingText()} bottom={BOTTOM * 2.3} />
         <FloatingButton icon={<SVG.CopyIcon color={theme.primary}/>} onClick={() => copyToClipboard()} bottom={BOTTOM} />
       </View>
     )
