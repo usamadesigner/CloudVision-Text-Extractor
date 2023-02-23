@@ -2,7 +2,7 @@
   "expo": {
     "name": "AI Text Extractor",
     "slug": "my-app",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +24,7 @@
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
       },
       "bundleIdentifier": "com.usamaaltaf.aiextracter",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.1.1"
     },
     "android": {
       "adaptiveIcon": {
@@ -38,7 +38,7 @@
         "android.permission.WRITE_EXTERNAL_STORAGE"
       ],
       "package": "com.usamaaltaf.aiextracter",
-      "versionCode": 1
+      "versionCode": 470010101
     },
     "web": {
       "favicon": "./assets/favicon.png"
