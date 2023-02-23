@@ -1,0 +1,4 @@
+export const API_KEY1='AIzaSyCVSfuxagooLTAMfn8ZIkiHCo4mqeNjHCw'
+export const API_KEY2='AIzaSyBFYOUeRc8vDurc62WHMjGRHFJkPl4hkQA'
+export const API_KEY3='AIzaSyDUYrOx0r7spBBltBDthXu_zwWzk2LKUA4'
+export const API_KEY4='AIzaSyA1GYvKPFVjzk-xPgVkA73pPoNtG7ksRxA'
