@@ -23,7 +23,8 @@
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
       },
-      "bundleIdentifier": "com.usamaaltaf.aiextracter"
+      "bundleIdentifier": "com.usamaaltaf.aiextracter",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -36,7 +37,8 @@
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
       ],
-      "package": "com.usamaaltaf.aiextracter"
+      "package": "com.usamaaltaf.aiextracter",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
